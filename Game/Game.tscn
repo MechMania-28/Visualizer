@@ -3,7 +3,7 @@
 [ext_resource path="res://Assets/Player Sprites/013.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tiles.png" type="Texture" id=2]
 [ext_resource path="res://Game/PlayerController.gd" type="Script" id=3]
-[ext_resource path="res://Game/PlayButton.gd" type="Script" id=4]
+[ext_resource path="res://Game/UI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Game/TurnTimer.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Player Sprites/010.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Player Sprites/019.png" type="Texture" id=7]
@@ -119,19 +119,9 @@ animations = [ {
 "name": "Knight_Walking",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 16 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 22 ) ],
-"loop": false,
-"name": "Wizard_Attacking",
-"speed": 20.0
-}, {
 "frames": [ ExtResource( 19 ) ],
 "loop": true,
 "name": "Archer_Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 22 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "Wizard_Walking",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 22 ) ],
@@ -139,20 +129,30 @@ animations = [ {
 "name": "Wizard_Idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 17 ) ],
-"loop": true,
-"name": "Knight_Idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 23 ), ExtResource( 10 ), ExtResource( 14 ), ExtResource( 9 ), ExtResource( 13 ), ExtResource( 17 ) ],
 "loop": false,
 "name": "Knight_Attacking",
 "speed": 20.0
 }, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "Knight_Idle",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 19 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "Archer_Walking",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Wizard_Walking",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 22 ) ],
+"loop": false,
+"name": "Wizard_Attacking",
+"speed": 20.0
 }, {
 "frames": [ ExtResource( 18 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ) ],
 "loop": false,
@@ -171,10 +171,10 @@ signal done_moving
 
 onready var tween = $Tween
 const TILESIZE = 64
-const XOFFSET = 0
-const YOFFSET = 0
+const XOFFSET = 320 - 11
+const YOFFSET = 0 - 14
 var my_class = \"Wizard\"
-const class_movement = {\"Archer\": 4, \"Wizard\": 3, \"Knight\": 2}
+const class_movement = {\"Archer\": 7, \"Wizard\": 7, \"Knight\": 7}
 onready var move_time_unit = $\"../TurnTimer\".wait_time / 5
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -200,20 +200,20 @@ func moveTo(new_pos):
 	
 
 func moveY(y_dist):
-	var y_time = abs(move_time_unit / class_movement[my_class] * y_dist)
+	var y_time = abs((move_time_unit / class_movement[my_class]) * y_dist)
 	
 	if tween.interpolate_property(self, 'position', 
-		position, Vector2(self.position.x, y_dist * TILESIZE + YOFFSET + self.position.y), y_time, 
+		position, Vector2(self.position.x, y_dist * TILESIZE + self.position.y), y_time, 
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT):
 			tween.start()
 			self.play(my_class + \"_Walking\")
 
 
 func moveX(x_dist):
-	var x_time = abs(move_time_unit / class_movement[my_class] * x_dist)
+	var x_time = abs((move_time_unit / class_movement[my_class]) * x_dist)
 	
 	if tween.interpolate_property(self, 'position', 
-		position, Vector2(x_dist * TILESIZE + YOFFSET + self.position.x, self.position.y), x_time, 
+		position, Vector2(x_dist * TILESIZE + self.position.x, self.position.y), x_time, 
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT):
 			tween.start()
 			self.play(my_class + \"_Walking\")
@@ -228,10 +228,14 @@ func updateClass(new_class):
 	self.play(my_class + \"_Idle\")
 
 func instantMoveTo(new_pos):
-	self.position = Vector2(new_pos[0]*TILESIZE + XOFFSET, new_pos[1]*TILESIZE + YOFFSET)
+	self.position = Vector2((new_pos[0]*TILESIZE) + XOFFSET, (new_pos[1]*TILESIZE) + YOFFSET)
 
 func attack(target: Vector2):
 	self.play(my_class + \"_Attacking\")
+	if (target.x > self.position.x):
+		self.flip_h = false
+	elif (target.x < self.position.x):
+		self.flip_h = true
 
 func _on_Tween_tween_completed(object, key):
 	self.play(my_class + \"_Idle\")
@@ -268,10 +272,10 @@ func std_popup():
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2( 0, -64 )
+position = Vector2( 320, 0 )
 tile_set = SubResource( 1 )
 format = 1
-tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 65536, 0, 0, 65537, 3, 0, 65538, 2, 0, 65539, 2, 0, 65540, 2, 0, 65541, 2, 0, 65542, 2, 0, 65543, 2, 0, 65544, 2, 0, 65545, 2, 0, 65546, 3, 0, 65547, 0, 0, 131072, 0, 0, 131073, 2, 0, 131074, 2, 0, 131075, 2, 0, 131076, 2, 0, 131077, 2, 0, 131078, 2, 0, 131079, 2, 0, 131080, 2, 0, 131081, 2, 0, 131082, 2, 0, 131083, 0, 0, 196608, 0, 0, 196609, 2, 0, 196610, 2, 0, 196611, 2, 0, 196612, 2, 0, 196613, 2, 0, 196614, 2, 0, 196615, 2, 0, 196616, 2, 0, 196617, 2, 0, 196618, 2, 0, 196619, 0, 0, 262144, 0, 0, 262145, 2, 0, 262146, 2, 0, 262147, 2, 0, 262148, 2, 0, 262149, 2, 0, 262150, 2, 0, 262151, 2, 0, 262152, 2, 0, 262153, 2, 0, 262154, 2, 0, 262155, 0, 0, 327680, 0, 0, 327681, 2, 0, 327682, 2, 0, 327683, 2, 0, 327684, 2, 0, 327685, 4, 0, 327686, 4, 0, 327687, 2, 0, 327688, 2, 0, 327689, 2, 0, 327690, 2, 0, 327691, 0, 0, 393216, 0, 0, 393217, 2, 0, 393218, 2, 0, 393219, 2, 0, 393220, 2, 0, 393221, 4, 0, 393222, 4, 0, 393223, 2, 0, 393224, 2, 0, 393225, 2, 0, 393226, 2, 0, 393227, 0, 0, 458752, 0, 0, 458753, 2, 0, 458754, 2, 0, 458755, 2, 0, 458756, 2, 0, 458757, 2, 0, 458758, 2, 0, 458759, 2, 0, 458760, 2, 0, 458761, 2, 0, 458762, 2, 0, 458763, 0, 0, 524288, 0, 0, 524289, 2, 0, 524290, 2, 0, 524291, 2, 0, 524292, 2, 0, 524293, 2, 0, 524294, 2, 0, 524295, 2, 0, 524296, 2, 0, 524297, 2, 0, 524298, 2, 0, 524299, 0, 0, 589824, 0, 0, 589825, 2, 0, 589826, 2, 0, 589827, 2, 0, 589828, 2, 0, 589829, 2, 0, 589830, 2, 0, 589831, 2, 0, 589832, 2, 0, 589833, 2, 0, 589834, 2, 0, 589835, 0, 0, 655360, 0, 0, 655361, 3, 0, 655362, 2, 0, 655363, 2, 0, 655364, 2, 0, 655365, 2, 0, 655366, 2, 0, 655367, 2, 0, 655368, 2, 0, 655369, 2, 0, 655370, 3, 0, 655371, 0, 0, 720896, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 0, 720904, 0, 0, 720905, 0, 0, 720906, 0, 0, 720907, 0, 0 )
+tile_data = PoolIntArray( 0, 3, 0, 1, 2, 0, 2, 5, 0, 3, 2, 0, 4, 5, 0, 5, 2, 0, 6, 5, 0, 7, 2, 0, 8, 5, 0, 9, 3, 0, 10, 0, 0, 11, 0, 0, 65536, 2, 0, 65537, 5, 0, 65538, 2, 0, 65539, 5, 0, 65540, 2, 0, 65541, 5, 0, 65542, 2, 0, 65543, 5, 0, 65544, 2, 0, 65545, 5, 0, 65547, 0, 0, 131072, 5, 0, 131073, 2, 0, 131074, 5, 0, 131075, 2, 0, 131076, 5, 0, 131077, 2, 0, 131078, 5, 0, 131079, 2, 0, 131080, 5, 0, 131081, 2, 0, 131083, 0, 0, 196608, 2, 0, 196609, 5, 0, 196610, 2, 0, 196611, 5, 0, 196612, 2, 0, 196613, 5, 0, 196614, 2, 0, 196615, 5, 0, 196616, 2, 0, 196617, 5, 0, 196619, 0, 0, 262144, 5, 0, 262145, 2, 0, 262146, 5, 0, 262147, 2, 0, 262148, 4, 0, 262149, 4, 0, 262150, 5, 0, 262151, 2, 0, 262152, 5, 0, 262153, 2, 0, 262155, 0, 0, 327680, 2, 0, 327681, 5, 0, 327682, 2, 0, 327683, 5, 0, 327684, 4, 0, 327685, 4, 0, 327686, 2, 0, 327687, 5, 0, 327688, 2, 0, 327689, 5, 0, 327691, 0, 0, 393216, 5, 0, 393217, 2, 0, 393218, 5, 0, 393219, 2, 0, 393220, 5, 0, 393221, 2, 0, 393222, 5, 0, 393223, 2, 0, 393224, 5, 0, 393225, 2, 0, 393227, 0, 0, 458752, 2, 0, 458753, 5, 0, 458754, 2, 0, 458755, 5, 0, 458756, 2, 0, 458757, 5, 0, 458758, 2, 0, 458759, 5, 0, 458760, 2, 0, 458761, 5, 0, 458763, 0, 0, 524288, 5, 0, 524289, 2, 0, 524290, 5, 0, 524291, 2, 0, 524292, 5, 0, 524293, 2, 0, 524294, 5, 0, 524295, 2, 0, 524296, 5, 0, 524297, 2, 0, 589824, 3, 0, 589825, 5, 0, 589826, 2, 0, 589827, 5, 0, 589828, 2, 0, 589829, 5, 0, 589830, 2, 0, 589831, 5, 0, 589832, 2, 0, 589833, 3, 0, 655360, 0, 0, 655371, 0, 0, 720896, 0, 0, 720901, 0, 0, 720902, 0, 0, 720903, 0, 0, 720904, 0, 0, 720905, 0, 0, 720906, 0, 0, 720907, 0, 0 )
 
 [node name="PlayerController" type="Node2D" parent="."]
 script = ExtResource( 3 )
@@ -329,74 +333,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="UI" type="VBoxContainer" parent="."]
-margin_right = 1000.0
-margin_bottom = 600.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
-margin_right = 1000.0
-margin_bottom = 560.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 16.0
-
-[node name="LeftSideInfo" type="VBoxContainer" parent="UI/HBoxContainer"]
-margin_right = 498.0
-margin_bottom = 560.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="RightSideInfo" type="VBoxContainer" parent="UI/HBoxContainer"]
-margin_left = 502.0
-margin_right = 1000.0
-margin_bottom = 560.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Controls" type="HBoxContainer" parent="UI"]
-margin_top = 564.0
-margin_right = 1000.0
-margin_bottom = 584.0
-size_flags_horizontal = 3
-size_flags_vertical = 2
-
-[node name="Buttons" type="HBoxContainer" parent="UI/Controls"]
-margin_right = 44.0
-margin_bottom = 20.0
-
-[node name="BackButton" type="Button" parent="UI/Controls/Buttons"]
-margin_right = 12.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="PlayButton" type="Button" parent="UI/Controls/Buttons"]
-margin_left = 16.0
-margin_right = 28.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-toggle_mode = true
-pressed = true
-script = ExtResource( 4 )
-
-[node name="ForwardButton" type="Button" parent="UI/Controls/Buttons"]
-margin_left = 32.0
-margin_right = 44.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Timeline" type="HSlider" parent="UI/Controls"]
-margin_left = 48.0
-margin_right = 1000.0
-margin_bottom = 16.0
-size_flags_horizontal = 3
+[node name="UI" parent="." instance=ExtResource( 4 )]
 
 [connection signal="timeout" from="PlayerController/TurnTimer" to="PlayerController" method="_on_Timer_timeout"]
 [connection signal="done_moving" from="PlayerController/PlayerOne" to="PlayerController" method="_on_PlayerOne_done_moving"]
@@ -409,4 +346,3 @@ size_flags_horizontal = 3
 [connection signal="tween_completed" from="PlayerController/PlayerFour/Tween" to="PlayerController/PlayerFour" method="_on_Tween_tween_completed"]
 [connection signal="file_loaded" from="FileDialog" to="PlayerController" method="_on_FileDialog_file_loaded"]
 [connection signal="file_selected" from="FileDialog" to="FileDialog" method="_on_FileDialog_file_selected"]
-[connection signal="toggled" from="UI/Controls/Buttons/PlayButton" to="PlayerController/TurnTimer" method="_on_PlayButton_toggled"]

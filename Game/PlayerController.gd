@@ -28,15 +28,19 @@ func nextTurn():
 	if ready:
 		for i in range(len(players)):
 			players[i].moveTo(turns[turn]["Players"][i]["Position"])
-			
 		yield(get_tree().create_timer($TurnTimer.wait_time / 4), "timeout")
-		print("done moving")
 		
 		for action in turns[turn]["Actions"]:
-			print(str(action["Player"]) + ": " + action["Action"])
 			if (action["Action"] == "attack"):
-				players[action["Player"] - 1].attack(Vector2(0, 0)) #fix targeting
-		print("Turn over")
+				players[action["Player"] - 1].attack(players[int(action["Target"])- 1].position) #add targeting reticles?
+			elif (action["Action"] == "buy"):
+				pass #do something
+			elif (action["Action"] == "use"):
+				pass
+		
+		for i in range(len(players)):
+			if turns[turn]["Players"][i]["Health"] < 0:
+				pass #die animation, then respawn at base as part of die animation
 		turn += 1
 		if turn >= len(turns):
 			turn = 0
