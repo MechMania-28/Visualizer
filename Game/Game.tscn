@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Assets/Player Sprites/013.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tiles.png" type="Texture" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://Assets/Player Sprites/012.png" type="Texture" id=23]
 [ext_resource path="res://Assets/Player Sprites/011.png" type="Texture" id=24]
 [ext_resource path="res://Assets/Player Sprites/014.png" type="Texture" id=25]
+[ext_resource path="res://Game/FileSelect.tscn" type="PackedScene" id=26]
 
 [sub_resource type="TileSet" id=1]
 2/name = "Tiles.png 2"
@@ -112,28 +113,8 @@
 7/shapes = [  ]
 7/z_index = 0
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 17 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "Knight_Walking",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 19 ) ],
-"loop": true,
-"name": "Archer_Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 22 ) ],
-"loop": true,
-"name": "Wizard_Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 10 ), ExtResource( 14 ), ExtResource( 9 ), ExtResource( 13 ), ExtResource( 17 ) ],
-"loop": false,
-"name": "Knight_Attacking",
-"speed": 20.0
-}, {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
 "name": "Knight_Idle",
@@ -142,6 +123,31 @@ animations = [ {
 "frames": [ ExtResource( 19 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "Archer_Walking",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "Knight_Walking",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 10 ), ExtResource( 14 ), ExtResource( 9 ), ExtResource( 13 ), ExtResource( 17 ) ],
+"loop": false,
+"name": "Knight_Attacking",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "Archer_Attacking",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 22 ) ],
+"loop": true,
+"name": "Wizard_Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ) ],
+"loop": true,
+"name": "Archer_Idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 22 ), ExtResource( 12 ) ],
@@ -153,14 +159,9 @@ animations = [ {
 "loop": false,
 "name": "Wizard_Attacking",
 "speed": 20.0
-}, {
-"frames": [ ExtResource( 18 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ) ],
-"loop": false,
-"name": "Archer_Attacking",
-"speed": 20.0
 } ]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=3]
 script/source = "extends AnimatedSprite
 
 signal done_moving
@@ -241,7 +242,7 @@ func _on_Tween_tween_completed(object, key):
 	self.play(my_class + \"_Idle\")
 "
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=4]
 script/source = "extends FileDialog
 signal file_loaded
 
@@ -250,7 +251,8 @@ var GameLog
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	std_popup()
+	#std_popup()
+	pass
 
 
 func _on_FileDialog_file_selected(path):
@@ -262,11 +264,13 @@ func _on_FileDialog_file_selected(path):
 	else:
 		file.close()
 		GameLog = json_result
+		Global.verify_GameLog(json_result.result)
 		emit_signal(\"file_loaded\")
 		print(\"JSON done\")
 
 func std_popup():
 	self.popup(Rect2(0, 0, 500, 300))
+
 "
 
 [node name="Node2D" type="Node2D"]
@@ -287,37 +291,37 @@ script = ExtResource( 5 )
 
 [node name="PlayerOne" type="AnimatedSprite" parent="PlayerController"]
 visible = false
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 animation = "Archer_Idle"
 centered = false
-script = SubResource( 4 )
+script = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="PlayerController/PlayerOne"]
 
 [node name="PlayerTwo" type="AnimatedSprite" parent="PlayerController"]
 visible = false
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 animation = "Archer_Idle"
 centered = false
-script = SubResource( 4 )
+script = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="PlayerController/PlayerTwo"]
 
 [node name="PlayerThree" type="AnimatedSprite" parent="PlayerController"]
 visible = false
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 animation = "Archer_Idle"
 centered = false
-script = SubResource( 4 )
+script = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="PlayerController/PlayerThree"]
 
 [node name="PlayerFour" type="AnimatedSprite" parent="PlayerController"]
 visible = false
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 animation = "Archer_Idle"
 centered = false
-script = SubResource( 4 )
+script = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="PlayerController/PlayerFour"]
 
@@ -328,12 +332,17 @@ window_title = "Open a File"
 resizable = true
 dialog_hide_on_ok = true
 mode = 0
-script = SubResource( 5 )
+filters = PoolStringArray( "*.txt", "*.json" )
+script = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="UI" parent="." instance=ExtResource( 4 )]
+
+[node name="Node" type="Node" parent="."]
+
+[node name="FileSelect" parent="Node" instance=ExtResource( 26 )]
 
 [connection signal="timeout" from="PlayerController/TurnTimer" to="PlayerController" method="_on_Timer_timeout"]
 [connection signal="done_moving" from="PlayerController/PlayerOne" to="PlayerController" method="_on_PlayerOne_done_moving"]
@@ -344,5 +353,5 @@ __meta__ = {
 [connection signal="tween_completed" from="PlayerController/PlayerThree/Tween" to="PlayerController/PlayerThree" method="_on_Tween_tween_completed"]
 [connection signal="done_moving" from="PlayerController/PlayerFour" to="PlayerController" method="_on_PlayerFour_done_moving"]
 [connection signal="tween_completed" from="PlayerController/PlayerFour/Tween" to="PlayerController/PlayerFour" method="_on_Tween_tween_completed"]
-[connection signal="file_loaded" from="FileDialog" to="PlayerController" method="_on_FileDialog_file_loaded"]
 [connection signal="file_selected" from="FileDialog" to="FileDialog" method="_on_FileDialog_file_selected"]
+[connection signal="file_loaded" from="Node/FileSelect" to="PlayerController" method="_on_FileSelect_file_loaded"]
