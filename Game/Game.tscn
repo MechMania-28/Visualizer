@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Player Sprites/013.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Tiles.png" type="Texture" id=2]
@@ -135,16 +135,6 @@ animations = [ {
 "name": "Knight_Attacking",
 "speed": 20.0
 }, {
-"frames": [ ExtResource( 18 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ) ],
-"loop": false,
-"name": "Archer_Attacking",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 22 ) ],
-"loop": true,
-"name": "Wizard_Idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 19 ) ],
 "loop": true,
 "name": "Archer_Idle",
@@ -159,6 +149,16 @@ animations = [ {
 "loop": false,
 "name": "Wizard_Attacking",
 "speed": 20.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ) ],
+"loop": false,
+"name": "Archer_Attacking",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 22 ) ],
+"loop": true,
+"name": "Wizard_Idle",
+"speed": 5.0
 } ]
 
 [sub_resource type="GDScript" id=3]
@@ -242,37 +242,6 @@ func _on_Tween_tween_completed(object, key):
 	self.play(my_class + \"_Idle\")
 "
 
-[sub_resource type="GDScript" id=4]
-script/source = "extends FileDialog
-signal file_loaded
-
-var GameLog
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	#std_popup()
-	pass
-
-
-func _on_FileDialog_file_selected(path):
-	var file = File.new()
-	file.open(path, file.READ)
-	var json_result = JSON.parse(file.get_as_text())
-	if json_result.error != OK:
-		print(\"JSON error\")
-	else:
-		file.close()
-		GameLog = json_result
-		Global.verify_GameLog(json_result.result)
-		emit_signal(\"file_loaded\")
-		print(\"JSON done\")
-
-func std_popup():
-	self.popup(Rect2(0, 0, 500, 300))
-
-"
-
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -325,19 +294,6 @@ script = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="PlayerController/PlayerFour"]
 
-[node name="FileDialog" type="FileDialog" parent="."]
-margin_right = 315.0
-margin_bottom = 130.0
-window_title = "Open a File"
-resizable = true
-dialog_hide_on_ok = true
-mode = 0
-filters = PoolStringArray( "*.txt", "*.json" )
-script = SubResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="UI" parent="." instance=ExtResource( 4 )]
 
 [node name="Node" type="Node" parent="."]
@@ -353,5 +309,4 @@ __meta__ = {
 [connection signal="tween_completed" from="PlayerController/PlayerThree/Tween" to="PlayerController/PlayerThree" method="_on_Tween_tween_completed"]
 [connection signal="done_moving" from="PlayerController/PlayerFour" to="PlayerController" method="_on_PlayerFour_done_moving"]
 [connection signal="tween_completed" from="PlayerController/PlayerFour/Tween" to="PlayerController/PlayerFour" method="_on_Tween_tween_completed"]
-[connection signal="file_selected" from="FileDialog" to="FileDialog" method="_on_FileDialog_file_selected"]
 [connection signal="file_loaded" from="Node/FileSelect" to="PlayerController" method="_on_FileSelect_file_loaded"]

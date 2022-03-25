@@ -7,6 +7,7 @@ onready var ProgressText = $HBoxContainer/VBoxContainer/AspectRatioContainer/HBo
 onready var ProgressBarNode = $HBoxContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/VBoxContainer/ProgressBar
 onready var Progress = $HBoxContainer
 onready var Anim = $HBoxContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/LoadSprite/AnimationPlayer
+onready var LoadSprite = $HBoxContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/LoadSprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,16 +31,20 @@ func _on_FileDialog_file_selected(path):
 	else:
 		file.close()
 		GameLog = json_result.result
-		Global.verify_GameLog(json_result.result)
 		Anim.play("loop")
+		Global.verify_GameLog(json_result.result)
+		
 	# throw up a loading screen here maybe
 	#get_tree().change_scene("res://game/Game.tscn")
 	
 
 func _on_verification_complete():
+	Anim.get_animation("close").track_set_key_value(2, 0, LoadSprite.rect_rotation + 180)
+	Anim.play("close")
 	yield(get_tree().create_timer(1),"timeout")
 	emit_signal("file_loaded")
 	Progress.hide()
+	
 
 func _on_verification_failed():
 	ProgressText.text = "Error: " + ProgressText.text
