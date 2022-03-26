@@ -14,16 +14,6 @@ var players_moved = 0
 func _ready():
 	pass # Replace with function body.
 
-func _on_FileDialog_file_loaded():
-	gamelog = $"../FileDialog".GameLog.result
-	ready = true
-	turns = gamelog["GameLog"]["Main"]["Turns"]
-	for i in len(players):
-		players[i].instantMoveTo(turns[0]["Players"][i]["Position"])
-		players[i].updateClass(turns[0]["Players"][i]["Class"].capitalize())
-		players[i].visible = true
-	
-
 func nextTurn():
 	if ready:
 		for i in range(len(players)):
@@ -50,3 +40,13 @@ func nextTurn():
 
 func _on_Timer_timeout():
 	nextTurn()
+
+
+func _on_FileSelect_file_loaded():
+	gamelog = Global.GameLog
+	ready = true
+	turns = gamelog["GameLog"]["Main"]["Turns"]
+	for i in len(players):
+		players[i].instantMoveTo(turns[0]["Players"][i]["Position"])
+		players[i].updateClass(turns[0]["Players"][i]["Class"].capitalize())
+		players[i].visible = true
