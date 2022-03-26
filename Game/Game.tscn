@@ -120,14 +120,19 @@ animations = [ {
 "name": "Knight_Idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 22 ) ],
+"loop": true,
+"name": "Wizard_Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Wizard_Walking",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 19 ), ExtResource( 11 ) ],
 "loop": true,
 "name": "Archer_Walking",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 15 ) ],
-"loop": true,
-"name": "Knight_Walking",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 10 ), ExtResource( 14 ), ExtResource( 9 ), ExtResource( 13 ), ExtResource( 17 ) ],
@@ -140,25 +145,20 @@ animations = [ {
 "name": "Archer_Idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 22 ), ExtResource( 12 ) ],
+"frames": [ ExtResource( 17 ), ExtResource( 15 ) ],
 "loop": true,
-"name": "Wizard_Walking",
+"name": "Knight_Walking",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 16 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 22 ) ],
-"loop": false,
-"name": "Wizard_Attacking",
-"speed": 20.0
 }, {
 "frames": [ ExtResource( 18 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 21 ), ExtResource( 20 ), ExtResource( 19 ) ],
 "loop": false,
 "name": "Archer_Attacking",
 "speed": 20.0
 }, {
-"frames": [ ExtResource( 22 ) ],
-"loop": true,
-"name": "Wizard_Idle",
-"speed": 5.0
+"frames": [ ExtResource( 16 ), ExtResource( 6 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 22 ) ],
+"loop": false,
+"name": "Wizard_Attacking",
+"speed": 20.0
 } ]
 
 [sub_resource type="GDScript" id=3]

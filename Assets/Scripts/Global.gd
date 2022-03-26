@@ -91,12 +91,14 @@ func _valid_keys(gamelog) -> bool:
 		_set_progress_text("Invalid file, missing \"%s\"" % GAMELOG_MAIN)
 		return false 
 	if !gamelog[GAMELOG_][GAMELOG_MAIN].has(GAMELOG_INFO):
-		_set_progress_text("Invalid file, missing \"%s\"" % GAMELOG_INFO)
+		_set_progress_text("Invalid file, missing \"%s\"" % GAMELOG_INFO) #TODO: Verify GAMELOG_INFO
 		return false
 	if !gamelog[GAMELOG_][GAMELOG_MAIN].has(GAMELOG_TURNS): 
 		_set_progress_text("Invalid file, missing \"%s\"" % GAMELOG_TURNS)
 		return false
 	player_count = gamelog[GAMELOG_][GAMELOG_MAIN][GAMELOG_INFO].size() # Set player count
+	# player_count = gamelog[GAMELOG_][GAMELOG_MAIN][GAMELOG_INFO][GAMELOG_PLAYER_COUNT] would be better
+	# Current method may not work in the future
 	return true
 
 # verifies each turn is correct
