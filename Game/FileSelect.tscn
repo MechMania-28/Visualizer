@@ -3,7 +3,7 @@
 [ext_resource path="res://Game/file_upload.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "close"
 length = 0.5
 tracks/0/type = "bezier"
@@ -39,8 +39,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "loop"
+[sub_resource type="Animation" id=2]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_rotation")
@@ -79,7 +78,7 @@ __meta__ = {
 visible = true
 margin_right = 481.0
 margin_bottom = 367.0
-window_title = "Select a file"
+window_title = "Open a File"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.txt", "*.json" )
@@ -145,8 +144,8 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/VBoxContainer/AspectRatioContainer/HBoxContainer/LoadSprite"]
 playback_speed = 0.5
-anims/close = SubResource( 2 )
-anims/loop = SubResource( 1 )
+anims/close = SubResource( 1 )
+anims/loop = SubResource( 2 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/AspectRatioContainer/HBoxContainer"]
 margin_left = 68.0

@@ -27,15 +27,13 @@ func _on_FileDialog_file_selected(path):
 	var json_result = JSON.parse(file.get_as_text())
 	Progress.show()
 	if json_result.error != OK:
-		Global.progress_text = "Error: invalid file loaded, select another"
+		Global.progress_text = "Error: invalid file selected, cannot load file."
 	else:
 		file.close()
 		GameLog = json_result.result
 		Anim.play("loop")
 		Global.verify_GameLog(json_result.result)
 		
-	# throw up a loading screen here maybe
-	#get_tree().change_scene("res://game/Game.tscn")
 	
 
 func _on_verification_complete():
