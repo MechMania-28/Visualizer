@@ -1,0 +1,213 @@
+[gd_scene load_steps=33 format=2]
+
+[ext_resource path="res://Assets/Colored Player Sprites/Green/Knight/006_Green.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Colored Player Sprites/Red/Knight/000_Red.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Colored Player Sprites/Red/Knight/018_Red.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Colored Player Sprites/Red/Knight/009_Red.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Colored Player Sprites/Red/Knight/012_Red.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Colored Player Sprites/Blue/Knight/009_Blue.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Colored Player Sprites/Blue/Knight/015_Blue.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Colored Player Sprites/Green/Knight/015_Green.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Colored Player Sprites/Green/Knight/009_Green.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Colored Player Sprites/Purple/Knight/009_Purple.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Colored Player Sprites/Red/Knight/015_Red.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Colored Player Sprites/Green/Knight/003_Green.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Colored Player Sprites/Purple/Knight/000_Purple.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Colored Player Sprites/Green/Knight/012_Green.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Colored Player Sprites/Blue/Knight/006_Blue.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Colored Player Sprites/Green/Knight/018_Green.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Colored Player Sprites/Purple/Knight/012_Purple.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Colored Player Sprites/Green/Knight/000_Green.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Colored Player Sprites/Blue/Knight/012_Blue.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Colored Player Sprites/Red/Knight/006_Red.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Colored Player Sprites/Red/Knight/003_Red.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Colored Player Sprites/Purple/Knight/006_Purple.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Colored Player Sprites/Purple/Knight/003_Purple.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Colored Player Sprites/Blue/Knight/018_Blue.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Colored Player Sprites/Purple/Knight/015_Purple.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Colored Player Sprites/Purple/Knight/018_Purple.png" type="Texture" id=26]
+[ext_resource path="res://Assets/Colored Player Sprites/Blue/Knight/000_Blue.png" type="Texture" id=27]
+[ext_resource path="res://Assets/Colored Player Sprites/Blue/Knight/003_Blue.png" type="Texture" id=28]
+[ext_resource path="res://Assets/PlayerHurtCropped.png" type="Texture" id=29]
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 29 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ SubResource( 5 ), ExtResource( 20 ) ],
+"loop": false,
+"name": "Knight Hurt",
+"speed": 10.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "New Anim",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 22 ), ExtResource( 10 ), ExtResource( 17 ), ExtResource( 25 ), ExtResource( 26 ) ],
+"loop": false,
+"name": "Purple Knight Attacking",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "Red Knight Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "Green Knight Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 22 ) ],
+"loop": true,
+"name": "Purple Knight Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 24 ) ],
+"loop": false,
+"name": "Blue Knight Attacking",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "Red Knight Walking",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "Purple Knight Walking",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "Blue Knight Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Green Knight Walking",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 27 ), ExtResource( 28 ) ],
+"loop": true,
+"name": "Blue Knight Walking",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 9 ), ExtResource( 14 ), ExtResource( 8 ), ExtResource( 16 ) ],
+"loop": false,
+"name": "Green Knight Attacking",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "Red Knight Attacking",
+"speed": 20.0
+} ]
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends AnimatedSprite
+
+#signal done_moving
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+
+onready var tween = $Tween
+const TILESIZE = 64
+const XOFFSET = 320 - 11
+const YOFFSET = 0 - 14
+var my_class = \"Wizard\"
+const class_movement = {\"Archer\": 7, \"Wizard\": 7, \"Knight\": 7}
+onready var move_time_unit = $\"../TurnTimer\".wait_time / 5
+var my_color = \"None\"
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+func moveTo(pos_dict):
+	var new_pos = [pos_dict['x'], pos_dict['y']]
+	var y_dist = new_pos[1] - ((self.position.y - YOFFSET) / TILESIZE)
+	if (abs(y_dist) > 0):
+		moveY(y_dist)
+		yield(tween, \"tween_completed\")
+	
+	var x_dist = new_pos[0] - ((self.position.x - XOFFSET) / TILESIZE)
+	if (abs(x_dist) > 0):
+		moveX(x_dist)
+		yield(tween, \"tween_completed\")
+	#emit_signal(\"done_moving\")
+	
+
+func moveY(y_dist):
+	var y_time = abs((move_time_unit / class_movement[my_class]) * y_dist)
+	
+	if tween.interpolate_property(self, 'position', 
+		position, Vector2(self.position.x, y_dist * TILESIZE + self.position.y), y_time, 
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT):
+			tween.start()
+			self.play(my_color + my_class + \" Walking\")
+
+
+func moveX(x_dist):
+	var x_time = abs((move_time_unit / class_movement[my_class]) * x_dist)
+	
+	if tween.interpolate_property(self, 'position', 
+		position, Vector2(x_dist * TILESIZE + self.position.x, self.position.y), x_time, 
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT):
+			tween.start()
+			self.play(my_color + my_class + \" Walking\")
+			if x_dist < 0:
+				self.flip_h = true
+			else:
+				self.flip_h = false
+
+
+func updateClass(new_class):
+	my_class = new_class
+	my_class = \"Knight\" #TEMPORARY UNTIL OTHER CLASS SPRITES ARE ADDED
+	self.play(my_color + my_class + \" Idle\")
+
+func instantMoveTo(pos_dict):
+	var new_pos = [pos_dict['x'], pos_dict['y']]
+	self.position = Vector2((new_pos[0]*TILESIZE) + XOFFSET, (new_pos[1]*TILESIZE) + YOFFSET)
+	self.play(my_color + my_class + \" Idle\")
+	tween.stop_all()
+
+func attack(target: Vector2):
+	self.play(my_color + my_class + \" Attacking\")
+	if (target.x > self.position.x):
+		self.flip_h = false
+	elif (target.x < self.position.x):
+		self.flip_h = true
+
+func hurt():
+	self.play(my_class + \" Hurt\")
+
+func use_item(item):
+	pass
+
+func buy_item(item):
+	pass
+func _on_Tween_tween_completed(object, key):
+	self.play(my_color + my_class + \" Idle\")
+"
+
+[node name="PlayerOne" type="AnimatedSprite"]
+visible = false
+frames = SubResource( 3 )
+centered = false
+script = SubResource( 4 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
