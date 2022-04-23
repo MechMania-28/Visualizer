@@ -30,27 +30,22 @@
 [ext_resource path="res://Assets/Colored Player Sprites/Blue/Knight/003_Blue.png" type="Texture" id=28]
 [ext_resource path="res://Assets/PlayerHurtCropped.png" type="Texture" id=29]
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=1]
 flags = 4
 atlas = ExtResource( 29 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ SubResource( 5 ), ExtResource( 20 ) ],
+"frames": [ ExtResource( 22 ), ExtResource( 10 ), ExtResource( 17 ), ExtResource( 25 ), ExtResource( 26 ) ],
 "loop": false,
-"name": "Knight Hurt",
-"speed": 10.0
+"name": "Purple Knight Attacking",
+"speed": 20.0
 }, {
 "frames": [  ],
 "loop": true,
 "name": "New Anim",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 22 ), ExtResource( 10 ), ExtResource( 17 ), ExtResource( 25 ), ExtResource( 26 ) ],
-"loop": false,
-"name": "Purple Knight Attacking",
-"speed": 20.0
 }, {
 "frames": [ ExtResource( 20 ) ],
 "loop": true,
@@ -62,19 +57,9 @@ animations = [ {
 "name": "Green Knight Idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 22 ) ],
+"frames": [ ExtResource( 27 ), ExtResource( 28 ) ],
 "loop": true,
-"name": "Purple Knight Idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 15 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 24 ) ],
-"loop": false,
-"name": "Blue Knight Attacking",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 21 ) ],
-"loop": true,
-"name": "Red Knight Walking",
+"name": "Blue Knight Walking",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 13 ), ExtResource( 23 ) ],
@@ -82,9 +67,34 @@ animations = [ {
 "name": "Purple Knight Walking",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 20 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "Red Knight Attacking",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 9 ), ExtResource( 14 ), ExtResource( 8 ), ExtResource( 16 ) ],
+"loop": false,
+"name": "Green Knight Attacking",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "Red Knight Walking",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 15 ) ],
 "loop": true,
 "name": "Blue Knight Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 6 ), ExtResource( 19 ), ExtResource( 7 ), ExtResource( 24 ) ],
+"loop": false,
+"name": "Blue Knight Attacking",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 22 ) ],
+"loop": true,
+"name": "Purple Knight Idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 18 ), ExtResource( 12 ) ],
@@ -92,23 +102,13 @@ animations = [ {
 "name": "Green Knight Walking",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 27 ), ExtResource( 28 ) ],
-"loop": true,
-"name": "Blue Knight Walking",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ), ExtResource( 9 ), ExtResource( 14 ), ExtResource( 8 ), ExtResource( 16 ) ],
+"frames": [ SubResource( 1 ), ExtResource( 20 ) ],
 "loop": false,
-"name": "Green Knight Attacking",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 20 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": false,
-"name": "Red Knight Attacking",
-"speed": 20.0
+"name": "Knight Hurt",
+"speed": 10.0
 } ]
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=3]
 script/source = "extends AnimatedSprite
 
 #signal done_moving
@@ -204,9 +204,9 @@ func _on_Tween_tween_completed(object, key):
 
 [node name="PlayerOne" type="AnimatedSprite"]
 visible = false
-frames = SubResource( 3 )
+frames = SubResource( 2 )
 centered = false
-script = SubResource( 4 )
+script = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="."]
 

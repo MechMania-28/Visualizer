@@ -131,5 +131,5 @@ margin_bottom = 642.0
 [connection signal="pause_toggled" from="UI" to="PlayerController" method="_on_UI_pause_toggled"]
 [connection signal="timeline_changed" from="UI" to="PlayerController" method="_on_UI_timeline_changed"]
 [connection signal="timeline_interaction" from="UI" to="PlayerController" method="_on_UI_timeline_interaction"]
-[connection signal="file_loaded" from="Node/FileSelect" to="UI" method="_on_FileDialog_file_loaded"]
 [connection signal="file_loaded" from="Node/FileSelect" to="PlayerController" method="_on_FileDialog_file_loaded"]
+[connection signal="file_loaded" from="Node/FileSelect" to="UI" method="_on_FileDialog_file_loaded"]

@@ -83,6 +83,7 @@ func verify_GameLog(_gamelog):
 	GameLog = _gamelog
 	gamelog_states = GameLog.duplicate(false)
 	progress = 0
+	true_turnNum = 0
 	max_progress = gamelog_states.size() - 1
 	set_process(true)
 	emit_signal("gamelog_verification_start")

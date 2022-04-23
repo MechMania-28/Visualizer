@@ -18,6 +18,7 @@ func _ready():
 	_err = Global.connect("progress_changed",self,"_on_set_progress")
 	_err = Global.connect("gamelog_verification_start",self,"_on_verification_start")
 	_err = Global.connect("gamelog_verification_complete",self,"_on_verification_complete")
+	_err = Global.connect("gamelog_verification_failed",self,"_on_verification_failed")
 	
 
 
@@ -46,6 +47,7 @@ func _on_verification_complete():
 
 func _on_verification_failed():
 	ProgressText.text = "Error: " + ProgressText.text
+	
 
 func _on_verification_start():
 	ProgressBarNode.max_value = Global.max_progress
@@ -55,3 +57,7 @@ func _on_set_progress_text(new : String):
 
 func _on_set_progress(new : float):
 	ProgressBarNode.value = new
+
+func _unhandled_key_input(event):
+	if event.is_action_released("ui_cancel"):
+		FileDia.popup()
