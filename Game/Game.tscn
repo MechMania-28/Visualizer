@@ -4,6 +4,7 @@
 [ext_resource path="res://Assets/Tiles.png" type="Texture" id=2]
 [ext_resource path="res://Game/PlayerController.gd" type="Script" id=3]
 [ext_resource path="res://Game/UI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Game/FileSelect.tscn" type="PackedScene" id=26]
 
 [sub_resource type="TileSet" id=1]
 2/name = "Tiles.png 2"
@@ -91,34 +92,6 @@
 7/shapes = [  ]
 7/z_index = 0
 
-[sub_resource type="GDScript" id=5]
-script/source = "extends FileDialog
-signal file_loaded(gamelog)
-
-var GameLog
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	std_popup()
-
-
-func _on_FileDialog_file_selected(path):
-	var file = File.new()
-	file.open(path, file.READ)
-	var json_result = JSON.parse(file.get_as_text())
-	if json_result.error != OK:
-		print(\"JSON error\")
-	else:
-		file.close()
-		GameLog = json_result
-		emit_signal(\"file_loaded\", json_result.result)
-		print(\"JSON done\")
-
-func std_popup():
-	self.popup(Rect2(0, 0, 500, 300))
-"
-
 [node name="Node2D" type="Node2D"]
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -145,28 +118,18 @@ animation = "New Anim"
 [node name="PlayerFour" parent="PlayerController" instance=ExtResource( 1 )]
 animation = "New Anim"
 
-[node name="FileDialog" type="FileDialog" parent="."]
-margin_right = 315.0
-margin_bottom = 130.0
-window_title = "Open a File"
-resizable = true
-dialog_hide_on_ok = true
-mode = 0
-script = SubResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="UI" parent="." instance=ExtResource( 4 )]
 margin_right = 1282.0
 margin_bottom = 642.0
 
+[node name="Node" type="Node" parent="."]
+
+[node name="FileSelect" parent="Node" instance=ExtResource( 26 )]
+
 [connection signal="forced_pause" from="PlayerController" to="UI" method="_on_PlayerController_forced_pause"]
 [connection signal="timeout" from="PlayerController/TurnTimer" to="PlayerController" method="_on_Timer_timeout"]
-[connection signal="file_loaded" from="FileDialog" to="PlayerController" method="_on_FileDialog_file_loaded"]
-[connection signal="file_loaded" from="FileDialog" to="PlayerController/TurnTimer" method="_on_FileDialog_file_loaded"]
-[connection signal="file_loaded" from="FileDialog" to="UI" method="_on_FileDialog_file_loaded"]
-[connection signal="file_selected" from="FileDialog" to="FileDialog" method="_on_FileDialog_file_selected"]
 [connection signal="pause_toggled" from="UI" to="PlayerController" method="_on_UI_pause_toggled"]
 [connection signal="timeline_changed" from="UI" to="PlayerController" method="_on_UI_timeline_changed"]
 [connection signal="timeline_interaction" from="UI" to="PlayerController" method="_on_UI_timeline_interaction"]
+[connection signal="file_loaded" from="Node/FileSelect" to="UI" method="_on_FileDialog_file_loaded"]
+[connection signal="file_loaded" from="Node/FileSelect" to="PlayerController" method="_on_FileDialog_file_loaded"]
