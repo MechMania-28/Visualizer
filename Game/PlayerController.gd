@@ -23,6 +23,7 @@ func _on_FileDialog_file_loaded(new_gamelog):
 	ready = true
 	#turns = gamelog["GameLog"]["Main"]["Turns"]
 	turns = gamelog
+	turn = 0
 	for i in len(players):
 		players[i].my_color = player_colors[i]
 		#players[i].instantMoveTo(turns[0]["Players"][i]["Position"])
@@ -51,8 +52,8 @@ func nextTurn():
 		# Moving correctly
 		for i in range(len(players)):
 			players[i].moveTo(turns[turn]["player_states"][i]["position"])
-		
 		yield(get_tree().create_timer($TurnTimer.wait_time / 4), "timeout")
+		
 		# Do actions
 		
 		for action in turns[turn]["attack_actions"]:
