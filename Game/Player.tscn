@@ -45,11 +45,6 @@ animations = [ {
 "name": "Purple Knight Attacking",
 "speed": 20.0
 }, {
-"frames": [ ExtResource( 15 ) ],
-"loop": true,
-"name": "Blue Knight Idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ), ExtResource( 9 ), ExtResource( 14 ), ExtResource( 8 ), ExtResource( 16 ) ],
 "loop": false,
 "name": "Green Knight Attacking",
@@ -65,24 +60,29 @@ animations = [ {
 "name": "Archer Attacking",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 22 ) ],
-"loop": true,
-"name": "Purple Knight Idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 21 ) ],
 "loop": true,
 "name": "Red Knight Walking",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 23 ) ],
+"frames": [ ExtResource( 22 ) ],
 "loop": true,
-"name": "Purple Knight Walking",
+"name": "Purple Knight Idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 27 ), ExtResource( 28 ) ],
 "loop": true,
 "name": "Blue Knight Walking",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "Blue Knight Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "Purple Knight Walking",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 18 ), ExtResource( 12 ) ],

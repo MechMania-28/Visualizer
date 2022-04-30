@@ -18,20 +18,7 @@ var timeline_clicked = false
 func _ready():
 	pass # Replace with function body.
 
-func _on_FileDialog_file_loaded(new_gamelog):
-	gamelog = new_gamelog
-	ready = true
-	#turns = gamelog["GameLog"]["Main"]["Turns"]
-	turns = gamelog
-	for i in len(players):
-		players[i].my_color = player_colors[i]
-		#players[i].instantMoveTo(turns[0]["Players"][i]["Position"])
-		players[i].instantMoveTo(turns[0]["player_states"][i]["position"])
-		players[i].updateClass(turns[0]["player_states"][i]["class"].capitalize())
-		players[i].visible = true
-	UI.update_player_stats(turns[0]["player_states"])
-	$TurnTimer.start()
-	nextTurn()
+
 	
 func reset():
 	UI.update_turn_num(0)
@@ -143,3 +130,20 @@ func _on_UI_timeline_interaction(clicked):
 		$TurnTimer.stop()
 	else:
 		$TurnTimer.start()
+
+
+func _on_FileSelect_file_loaded(new_gamelog):
+	turn = 0
+	gamelog = new_gamelog
+	ready = true
+	#turns = gamelog["GameLog"]["Main"]["Turns"]
+	turns = gamelog
+	for i in len(players):
+		players[i].my_color = player_colors[i]
+		#players[i].instantMoveTo(turns[0]["Players"][i]["Position"])
+		players[i].instantMoveTo(turns[0]["player_states"][i]["position"])
+		players[i].updateClass(turns[0]["player_states"][i]["class"].capitalize())
+		players[i].visible = true
+	UI.update_player_stats(turns[0]["player_states"])
+	$TurnTimer.start()
+	nextTurn()
