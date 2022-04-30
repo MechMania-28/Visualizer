@@ -51,7 +51,7 @@ func force_pause(paused):
 
 
 func update_turn_num(turn):
-	$UI/HBoxContainer/TimeControls/Panel/Label.text = "Turn " + str(turn)
+	$UI/HBoxContainer/TimeControls/Panel/VBoxContainer/Label2.text = str(turn)
 	$UI/HBoxContainer/TimeControls/Timeline.value = turn
 
 
