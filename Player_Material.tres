@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://Player_Shader.gdshader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/newcolor = Plane( 0, 1, 0, 1 )
+shader_param/oldcolor = Plane( 0.605, 0.808, 0.453, 1 )
+shader_param/tol = 0.2
