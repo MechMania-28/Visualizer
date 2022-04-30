@@ -51,6 +51,9 @@ var progress_text : String = "" setget _set_progress_text
 var current_turn : int # Current turn in play
 var player_count : int # Number of players in game
 
+# HTML5/JS detection
+onready var use_js = OS.get_name() == "HTML5" and OS.has_feature('JavaScript')
+
 enum Classes {
 	KNIGHT, 
 	ARCHER, 

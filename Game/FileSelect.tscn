@@ -183,4 +183,20 @@ margin_bottom = 640.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WebUpload" type="Button" parent="CenterContainer"]
+margin_left = 599.0
+margin_top = 310.0
+margin_right = 680.0
+margin_bottom = 330.0
+text = "Upload file"
+
 [connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="pressed" from="CenterContainer/WebUpload" to="." method="web_load_file"]
