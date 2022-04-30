@@ -52,8 +52,8 @@ func nextTurn():
 		# Moving correctly
 		for i in range(len(players)):
 			players[i].moveTo(turns[turn]["player_states"][i]["position"])
-		
 		yield(get_tree().create_timer($TurnTimer.wait_time / 4), "timeout")
+		
 		# Do actions
 		
 		for action in turns[turn]["attack_actions"]:

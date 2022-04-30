@@ -1,0 +1,416 @@
+{
+  "GameLog": {
+    "Main": {
+      "Info": [
+        "name1",
+        "name2",
+        "name3",
+        "name4"
+      ],
+      "Turns": [
+        {
+          "TurnNum": 1,
+          "Players": [
+            {
+              "Player": 1,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                1,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 2,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                3,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 3,
+              "Class": "wizard",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                5,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 4,
+              "Class": "archer",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                7,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            }
+          ],
+          "Actions": [
+            {
+              "Player": 1,
+              "Action": "buy",
+              "Target": "permenant_damage"
+            },
+            {
+              "Player": 3,
+              "Action": "attack",
+              "Target": "2"
+            }
+          ]
+        },
+        {
+          "TurnNum": 2,
+          "Players": [
+            {
+              "Player": 1,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                1,
+                4
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 2,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                4,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 3,
+              "Class": "wizard",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                7,
+                4
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 4,
+              "Class": "archer",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                6,
+                1
+              ],
+              "Health": 4,
+              "Gold": 2
+            }
+          ],
+          "Actions": [
+            {
+              "Player": 4,
+              "Action": "attack",
+              "Target": "2"
+            },
+            {
+              "Player": 2,
+              "Action": "attack",
+              "Target": "1"
+            }, {
+              "Player": 3,
+              "Action": "use",
+              "Target": "temporary_damage"
+            }
+          ]
+        },
+{
+          "TurnNum": 1,
+          "Players": [
+            {
+              "Player": 1,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                1,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 2,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                3,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 3,
+              "Class": "wizard",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                5,
+                3
+              ],
+              "Health": 5,
+              "Gold": 2
+            },
+            {
+              "Player": 4,
+              "Class": "archer",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                7,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            }
+          ],
+          "Actions": [
+            {
+              "Player": 1,
+              "Action": "buy",
+              "Target": "permenant_damage"
+            },
+            {
+              "Player": 3,
+              "Action": "attack",
+              "Target": "2"
+            }
+          ]
+        },
+        {
+          "TurnNum": 2,
+          "Players": [
+            {
+              "Player": 1,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                1,
+                4
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 2,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                4,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 3,
+              "Class": "wizard",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                7,
+                4
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 4,
+              "Class": "archer",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                6,
+                1
+              ],
+              "Health": 4,
+              "Gold": 2
+            }
+          ],
+          "Actions": [
+            {
+              "Player": 4,
+              "Action": "attack",
+              "Target": "2"
+            },
+            {
+              "Player": 2,
+              "Action": "attack",
+              "Target": "1"
+            }, {
+              "Player": 3,
+              "Action": "use",
+              "Target": "temporary_damage"
+            }
+          ]
+        },
+{
+          "TurnNum": 1,
+          "Players": [
+            {
+              "Player": 1,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                1,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 2,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                3,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 3,
+              "Class": "wizard",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                5,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 4,
+              "Class": "archer",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                7,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            }
+          ],
+          "Actions": [
+            {
+              "Player": 1,
+              "Action": "buy",
+              "Target": "permenant_damage"
+            },
+            {
+              "Player": 3,
+              "Action": "attack",
+              "Target": "2"
+            }
+          ]
+        },
+        {
+          "TurnNum": 2,
+          "Players": [
+            {
+              "Player": 1,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                1,
+                4
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 2,
+              "Class": "knight",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                4,
+                3
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 3,
+              "Class": "wizard",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                7,
+                4
+              ],
+              "Health": 4,
+              "Gold": 2
+            },
+            {
+              "Player": 4,
+              "Class": "archer",
+              "StatBuffs": [],
+              "Item": "none",
+              "Position": [
+                6,
+                1
+              ],
+              "Health": 4,
+              "Gold": 2
+            }
+          ],
+          "Actions": [
+            {
+              "Player": 4,
+              "Action": "attack",
+              "Target": "2"
+            },
+            {
+              "Player": 2,
+              "Action": "attack",
+              "Target": "1"
+            }, {
+              "Player": 3,
+              "Action": "use",
+              "Target": "temporary_damage"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
