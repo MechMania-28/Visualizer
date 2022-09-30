@@ -1,8 +1,40 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Game/PlayButton.gd" type="Script" id=1]
 [ext_resource path="res://Game/UI.gd" type="Script" id=2]
 [ext_resource path="res://Game/PlayerPanel.tscn" type="PackedScene" id=3]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0, 1, 0.109804, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.0627451, 0.00784314, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 1, 1, 1 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 0.862745, 0.109804, 0.996078, 1 )
 
 [node name="MarginContainer" type="MarginContainer"]
 anchor_right = 1.0
@@ -41,10 +73,12 @@ size_flags_horizontal = 11
 size_flags_vertical = 3
 
 [node name="P1Panel" parent="UI/HBoxContainer/LeftSideInfo" instance=ExtResource( 3 )]
+custom_styles/panel = SubResource( 1 )
 
 [node name="P2Panel" parent="UI/HBoxContainer/LeftSideInfo" instance=ExtResource( 3 )]
 margin_top = 302.0
 margin_bottom = 600.0
+custom_styles/panel = SubResource( 2 )
 
 [node name="TimeControls" type="VBoxContainer" parent="UI/HBoxContainer"]
 margin_left = 237.0
@@ -56,7 +90,7 @@ size_flags_stretch_ratio = 0.25
 
 [node name="Panel" type="PanelContainer" parent="UI/HBoxContainer/TimeControls"]
 margin_right = 59.0
-margin_bottom = 54.0
+margin_bottom = 59.0
 size_flags_vertical = 3
 size_flags_stretch_ratio = 7.0
 
@@ -64,7 +98,7 @@ size_flags_stretch_ratio = 7.0
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 52.0
-margin_bottom = 47.0
+margin_bottom = 52.0
 
 [node name="Label" type="Label" parent="UI/HBoxContainer/TimeControls/Panel/VBoxContainer"]
 margin_right = 45.0
@@ -82,7 +116,7 @@ __meta__ = {
 [node name="Label2" type="Label" parent="UI/HBoxContainer/TimeControls/Panel/VBoxContainer"]
 margin_top = 18.0
 margin_right = 45.0
-margin_bottom = 40.0
+margin_bottom = 45.0
 rect_pivot_offset = Vector2( -232, 55 )
 size_flags_horizontal = 3
 size_flags_vertical = 7
@@ -95,26 +129,28 @@ __meta__ = {
 }
 
 [node name="BackButton" type="Button" parent="UI/HBoxContainer/TimeControls"]
-margin_top = 58.0
+visible = false
+margin_top = 61.0
 margin_right = 59.0
-margin_bottom = 78.0
+margin_bottom = 81.0
 size_flags_horizontal = 3
 
 [node name="PlayButton" type="Button" parent="UI/HBoxContainer/TimeControls"]
-margin_top = 82.0
+margin_top = 63.0
 margin_right = 59.0
-margin_bottom = 102.0
+margin_bottom = 83.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 toggle_mode = true
 pressed = true
-text = "Pause"
+text = "Playing"
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ForwardButton" type="Button" parent="UI/HBoxContainer/TimeControls"]
+visible = false
 margin_top = 106.0
 margin_right = 59.0
 margin_bottom = 126.0
@@ -122,7 +158,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Timeline" type="VSlider" parent="UI/HBoxContainer/TimeControls"]
-margin_top = 130.0
+margin_top = 87.0
 margin_right = 59.0
 margin_bottom = 600.0
 size_flags_horizontal = 1
@@ -146,14 +182,17 @@ size_flags_vertical = 3
 
 [node name="P3Panel" parent="UI/HBoxContainer/RightSideInfo" instance=ExtResource( 3 )]
 margin_right = 234.0
+custom_styles/panel = SubResource( 3 )
 
 [node name="P4Panel" parent="UI/HBoxContainer/RightSideInfo" instance=ExtResource( 3 )]
 margin_top = 302.0
 margin_right = 234.0
 margin_bottom = 600.0
+custom_styles/panel = SubResource( 4 )
 
 [connection signal="pressed" from="UI/HBoxContainer/TimeControls/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="toggled" from="UI/HBoxContainer/TimeControls/PlayButton" to="." method="_on_PlayButton_toggled"]
+[connection signal="toggled" from="UI/HBoxContainer/TimeControls/PlayButton" to="UI/HBoxContainer/TimeControls/PlayButton" method="_on_PlayButton_toggled"]
 [connection signal="pressed" from="UI/HBoxContainer/TimeControls/ForwardButton" to="." method="_on_ForwardButton_pressed"]
 [connection signal="gui_input" from="UI/HBoxContainer/TimeControls/Timeline" to="." method="_on_Timeline_gui_input"]
 [connection signal="value_changed" from="UI/HBoxContainer/TimeControls/Timeline" to="." method="_on_Timeline_value_changed"]

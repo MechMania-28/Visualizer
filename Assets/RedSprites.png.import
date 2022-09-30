@@ -2,19 +2,19 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Speed_Icon.png-cb61710731cc888261b76e77b974b187.stex"
+path="res://.import/RedSprites.png-6539943829dfc833c529e2ded2061f71.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Icons/Speed_Icon.png"
-dest_files=[ "res://.import/Speed_Icon.png-cb61710731cc888261b76e77b974b187.stex" ]
+source_file="res://Assets/RedSprites.png"
+dest_files=[ "res://.import/RedSprites.png-6539943829dfc833c529e2ded2061f71.stex" ]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0

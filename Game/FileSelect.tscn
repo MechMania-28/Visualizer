@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Game/file_upload.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Icons/mm28_icon.png" type="Texture" id=2]
+[ext_resource path="res://UI_Theme.tres" type="Theme" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "close"
@@ -75,7 +76,6 @@ __meta__ = {
 }
 
 [node name="FileDialog" type="FileDialog" parent="."]
-visible = true
 margin_right = 481.0
 margin_bottom = 367.0
 window_title = "Open a File"
@@ -192,10 +192,12 @@ __meta__ = {
 }
 
 [node name="WebUpload" type="Button" parent="CenterContainer"]
-margin_left = 599.0
-margin_top = 310.0
-margin_right = 680.0
-margin_bottom = 330.0
+margin_left = 540.0
+margin_top = 295.0
+margin_right = 740.0
+margin_bottom = 345.0
+rect_min_size = Vector2( 200, 50 )
+theme = ExtResource( 3 )
 text = "Upload file"
 
 [connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]

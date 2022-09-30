@@ -43,6 +43,7 @@ signal progress_text_changed
 signal progress_changed
 
 var GameLog : Array
+var Names: Array
 var gamelog_states : Array
 var progress : float = 0 setget _set_progress
 var max_progress : float
@@ -83,7 +84,8 @@ func verify_GameLog(_gamelog):
 	if !_valid_keys(_gamelog): 
 		emit_signal("gamelog_verification_failed")
 		return
-	GameLog = _gamelog
+	GameLog = _gamelog["turns"]
+	Names = _gamelog["names"]
 	gamelog_states = GameLog.duplicate(false)
 	progress = 0
 	true_turnNum = 0
@@ -119,6 +121,7 @@ func _process(_delta):
 
 # Verifies that Main, Info, and Turns exist and are correct
 func _valid_keys(gamelog) -> bool:
+	gamelog = gamelog["turns"]
 	if gamelog == null or !(gamelog is Array): 
 		_set_progress_text("Invalid file")
 		return false
@@ -368,7 +371,7 @@ func _set_progress_text(new : String):
 
 func _set_progress(new: float):
 	progress = new
-	emit_signal("progress_changed", new / max_progress)
+	emit_signal("progress_changed", (new / max_progress) * 100)
 
 func _is_integer(x : float):
 	return fmod(x, 1.0) == 0

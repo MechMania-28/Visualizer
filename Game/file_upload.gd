@@ -108,7 +108,7 @@ func _on_verification_complete():
 	Anim.get_animation("close").track_set_key_value(2, 0, LoadSprite.rect_rotation + 180)
 	Anim.play("close")
 	yield(get_tree().create_timer(1),"timeout")
-	emit_signal("file_loaded", Global.GameLog)
+	emit_signal("file_loaded", Global.GameLog, Global.Names)
 	Progress.hide()
 	self.hide()
 	
