@@ -18,6 +18,7 @@ signal in_focus
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	FileDia.hide()
 	Progress.hide()
 	
 	var _err = Global.connect("progress_text_changed",self,"_on_set_progress_text")
@@ -26,16 +27,47 @@ func _ready():
 	_err = Global.connect("gamelog_verification_complete",self,"_on_verification_complete")
 	_err = Global.connect("gamelog_verification_failed",self,"_on_verification_failed")
 	
-	if Global.use_js:
-		_define_js()
-	else:
-		FileDia.show()
+#	if Global.use_js:
+#		_define_js()
+#	else:
+#		FileDia.show()
 	 
-	uploadButton.show()
-	
+	#uploadButton.show()
+	auto_load_file()
 	#popup(Rect2(0, 0, 500, 300))
 	
 
+var log_path = "C:/Users/Cameron/.mm28/downloadedlogs"
+func auto_load_file():
+	var d = Directory.new()
+	var file = File.new()
+	var file_path
+	
+	var looking = true
+	while looking:
+		d.open(log_path)
+		d.list_dir_begin(true, true)
+		
+		file_path = log_path + "/" + d.get_next()
+		if file.open(file_path,File.READ) != 0: 
+			yield(get_tree().create_timer(5.0), "timeout")
+		else:
+			looking = false
+	
+	
+	var json_result = JSON.parse(file.get_as_text())
+	Progress.show()
+	if json_result.error != OK:
+		Global.progress_text = "Error: invalid file selected, cannot load file."
+	else:
+		file.close()
+		OS.move_to_trash(file_path)
+		GameLog = json_result.result
+		Anim.play("loop")
+		self.show()
+		Progress.show()
+		Global.verify_GameLog(json_result.result)
+	
 
 func _on_FileDialog_file_selected(path):
 	var file = File.new()

@@ -11,6 +11,8 @@ onready var total_turn_time = $TurnTimer.wait_time
 onready var move_time = total_turn_time / 8
 onready var attack_time = total_turn_time / 8
 onready var use_time = total_turn_time / 12
+export (NodePath) var Node_FileSelect
+var FileSelect
 # ["Blue ", "Green ", "Red ", "Purple "]
 var turn = 0
 var gamelog
@@ -23,6 +25,7 @@ onready var inactive_shader = preload("res://Assets/Disconnected_Shader.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	FileSelect = get_node(Node_FileSelect)
 	for i in range(4):
 		players[i].my_color = colors[i]
 		players[i].move_time_unit = move_time
@@ -129,6 +132,7 @@ func nextTurn():
 			#turn = 0
 			UI.force_pause(true)
 			$TurnTimer.set_paused(true)
+			FileSelect.auto_load_file()
 		
 
 
@@ -175,6 +179,7 @@ func jumpToTurn(new_turn):
 		if new_turn >= len(turns)-1:
 			UI.force_pause(true)
 			$TurnTimer.set_paused(true)
+			FileSelect.auto_load_file()
 
 # Handling the timer
 func _on_Timer_timeout():
@@ -220,4 +225,5 @@ func _on_FileSelect_file_loaded(new_gamelog, names):
 	$Logo.visible = false
 	$TurnTimer.start()
 	$TurnTimer.set_paused(false)
+	UI.force_pause(false)
 	nextTurn()

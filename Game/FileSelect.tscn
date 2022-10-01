@@ -82,8 +82,6 @@ window_title = "Open a File"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.txt", "*.json" )
-current_dir = "/Users/dding/Documents/Projects/Godot/MM28"
-current_path = "/Users/dding/Documents/Projects/Godot/MM28/"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -134,6 +132,7 @@ size_flags_vertical = 3
 margin_top = 244.0
 margin_right = 64.0
 margin_bottom = 308.0
+rect_rotation = 359.244
 rect_pivot_offset = Vector2( 32, 32 )
 size_flags_vertical = 8
 texture = ExtResource( 2 )
@@ -192,6 +191,7 @@ __meta__ = {
 }
 
 [node name="WebUpload" type="Button" parent="CenterContainer"]
+visible = false
 margin_left = 540.0
 margin_top = 295.0
 margin_right = 740.0
